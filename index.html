@@ -40,6 +40,7 @@
 
    
     <style>
+
         html { scroll-behavior: smooth; }
         
         /* 1. TEXTURA DE FONDO AZUL UNIFICADA (Optimizado para iOS/iPhone) */
@@ -340,33 +341,39 @@
 
             
 
-            <section id="rsvp" class="tarjeta-papel py-16 px-8 w-full max-w-md mx-auto flex-shrink-0">
-                <div class="text-center mb-10">
-                    <h2 class="font-serif text-3xl text-boda-azul font-semibold">Confirmar Asistencia</h2>
-                    <p class="text-[9px] text-stone-400 uppercase tracking-[0.25em] mt-2">Agradecemos tu respuesta antes del 20 de Julio</p>
-                </div>
+            <!-- SECCIÓN RSVP CORREGIDA CON TEXTOS Y FONDO ESTABILIZADO -->
+<section id="rsvp" class="tarjeta-papel py-16 px-8 w-full max-w-md mx-auto flex-shrink-0 relative">
+    <div class="text-center mb-10 relative z-10">
+        <h2 class="font-serif text-3xl text-boda-azul font-semibold">Confirmar Asistencia</h2>
+        <p class="text-[9px] text-stone-400 uppercase tracking-[0.25em] mt-2">Agradecemos tu respuesta antes del 20 de Julio</p>
+    </div>
 
-                <form class="space-y-6 w-full" id="rsvpForm">
-                    <div>
-                        <label class="block text-[9px] uppercase tracking-[0.2em] text-boda-azul font-medium mb-1">Nombre Completo</label>
-                        <input type="text" id="rsvpNombre" required class="w-full bg-transparent border-b border-stone-300 py-2 text-sm focus:outline-none focus:border-boda-dorado transition-colors rounded-none text-stone-800">
-                    </div>
-                    <div>
-                        <label class="block text-[9px] uppercase tracking-[0.2em] text-boda-azul font-medium mb-1">¿Podrás acompañarnos?</label>
-                        <select id="rsvpAsistencia" class="w-full bg-transparent border-b border-stone-300 py-2 text-sm focus:outline-none focus:border-boda-dorado transition-colors text-stone-600 rounded-none">
-                            <option value="Sí, asistiré con mucho gusto">Sí, asistiré con mucho gusto</option>
-                            <option value="No podré asistir, les deseo lo mejor">No podré asistir, les deseo lo mejor</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[9px] uppercase tracking-[0.2em] text-boda-azul font-medium mb-1">Mensaje Especial</label>
-                        <textarea id="rsvpMensaje" rows="2" placeholder="Opcional..." class="w-full bg-transparent border-b border-stone-300 py-2 text-sm focus:outline-none focus:border-boda-dorado transition-colors rounded-none text-stone-800"></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-boda-azul hover:bg-black text-white text-[10px] font-semibold uppercase tracking-[0.25em] py-3.5 transition-all duration-500 rounded shadow-md">
-                        Confirmar por WhatsApp
-                    </button>
-                </form>
+    <form class="space-y-6 w-full relative z-10 mb-10" id="rsvpForm">
+        <div>
+            <label class="block text-[9px] uppercase tracking-[0.2em] text-boda-azul font-medium mb-1">Nombre Completo</label>
+            <input type="text" id="rsvpNombre" required class="w-full bg-transparent border-b border-stone-300 py-2 text-sm focus:outline-none focus:border-boda-dorado transition-colors rounded-none text-stone-800">
+        </div>
+        <div>
+            <label class="block text-[9px] uppercase tracking-[0.2em] text-boda-azul font-medium mb-1">¿Podrás acompañarnos?</label>
+            <select id="rsvpAsistencia" class="w-full bg-transparent border-b border-stone-300 py-2 text-sm focus:outline-none focus:border-boda-dorado transition-colors text-stone-600 rounded-none">
+                <option value="Sí, asistiré con mucho gusto">Sí, asistiré con mucho gusto</option>
+                <option value="No podré asistir, les deseo lo mejor">No podré asistir, les deseo lo mejor</option>
+            </select>
+        </div>
+        <div>
+            <label class="block text-[9px] uppercase tracking-[0.2em] text-boda-azul font-medium mb-1">Mensaje Especial</label>
+            <textarea id="rsvpMensaje" rows="2" placeholder="Opcional..." class="w-full bg-transparent border-b border-stone-300 py-2 text-sm focus:outline-none focus:border-boda-dorado transition-colors rounded-none text-stone-800"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-boda-azul hover:bg-black text-white text-[10px] font-semibold uppercase tracking-[0.25em] py-3.5 transition-all duration-500 rounded shadow-md">
+            Confirmar por WhatsApp
+        </button>
+    </form>
 
+    <div class="text-center relative z-10 pt-4 border-t border-stone-200/60 max-w-[280px] mx-auto">
+        <p class="font-hand text-4xl text-boda-dorado mb-1">Con cariño,</p>
+        <p class="font-serif italic text-lg text-boda-azul font-medium">Yury &amp; Ronald</p>
+    </div>
+</section>
 <section id="regalo" class="tarjeta-papel py-16 px-8 border-t border-stone-100 text-center w-full flex-shrink-0" data-aos="fade-up">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" class="w-10 h-10 mx-auto mb-3 text-boda-azul">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.5v15m0-15a3 3 0 0 1 3 3v3H9v-3a3 3 0 0 1 3-3ZM4.318 6.318a4.5 4.5 0 0 0 0 6.364L12 20.364l7.682-7.682a4.5 4.5 0 0 0-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 0 0-6.364 0Z" />
