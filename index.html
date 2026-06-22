@@ -37,7 +37,8 @@
             }
         }
     </script>
-    
+
+   
     <style>
         html { scroll-behavior: smooth; }
         
@@ -93,6 +94,29 @@
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
         }
+.img-oculta {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 1.8s cubic-bezier(0.215, 0.610, 0.355, 1), transform 1.8s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.scroll-revelar {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.6s cubic-bezier(0.215, 0.610, 0.355, 1), transform 1.6s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.scroll-revelar-linea {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: opacity 1.2s cubic-bezier(0.215, 0.610, 0.355, 1), transform 1.4s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.img-visible { opacity: 1; transform: translateY(0); }
+.revelado-activo { opacity: 1; transform: translateY(0); }
+.linea-activa { opacity: 0.5; transform: scaleX(1); }
+
     </style>
 </head>
 <body id="boda-body" class="bg-satinado font-sans antialiased text-stone-700 selection:bg-amber-100/50 min-h-screen overflow-hidden">
@@ -142,62 +166,70 @@
     <div class="flex justify-center w-full min-h-screen px-0">
         <main class="w-full max-w-[460px] min-h-screen relative shadow-[0_0_60px_rgba(0,0,0,0.6)] border-x border-boda-dorado/10 z-10 flex flex-col overflow-y-auto overflow-x-hidden bg-transparent">
             
-            <header class="tarjeta-papel w-full flex flex-col items-center text-center pb-12 relative flex-shrink-0">
-                <div class="absolute inset-4 border border-boda-dorado/20 pointer-events-none rounded-xl"></div>
-                <div class="absolute inset-5 border border-boda-dorado/5 pointer-events-none rounded-xl"></div>
-                
-                <div class="w-full h-[460px] overflow-hidden relative papel-rasgado-bottom shadow-md bg-stone-100">
-                    <img src="https://www.dropbox.com/scl/fi/exyl1015o3rmfsld3fjdb/YR-inicio.png?rlkey=23p9b0xqv1pigfxxoqieymo80&raw=1" class="w-full h-full object-cover object-center" alt="Portada Novios Completo">
-                    <div class="absolute inset-0 bg-boda-azul/5"></div>
-                </div>
+            <<header class="tarjeta-papel w-full flex flex-col items-center text-center pb-12 relative flex-shrink-0">
+    <div class="absolute inset-4 border border-boda-dorado/20 pointer-events-none rounded-xl"></div>
+    <div class="absolute inset-5 border border-boda-dorado/5 pointer-events-none rounded-xl"></div>
+    
+    <div class="w-full aspect-[3/4] overflow-hidden relative papel-rasgado-bottom shadow-sm bg-stone-100 img-oculta" id="contenedor-portada">
+        <img src="https://www.dropbox.com/scl/fi/exyl1015o3rmfsld3fjdb/YR-inicio.png?rlkey=23p9b0xqv1pigfxxoqieymo80&raw=1" 
+             class="w-full h-full object-cover object-center" 
+             alt="Portada Novios Yury y Ronald"
+             id="img-portada"
+             onload="portadaDescargada()">
+        <div class="absolute inset-0 bg-boda-azul/5"></div>
+    </div>
 
-                <div class="pt-10 px-6 space-y-4 w-full">
-                    <span class="text-stone-400 text-[10px] uppercase tracking-[0.5em] font-light block">Nos Casamos</span>
-                    <h2 class="font-hand text-6xl text-boda-azul leading-none">Yury &amp; Ronald</h2>
-                    <div class="w-16 h-[1px] bg-boda-dorado mx-auto my-4 opacity-50"></div>
-                    
-                    <p class="font-serif text-[11px] text-boda-dorado tracking-[0.3em] uppercase font-bold mb-3">Faltan:</p>
-                    <div class="grid grid-cols-4 gap-2 max-w-[320px] mx-auto justify-center text-center bg-white/60 p-4 rounded-2xl border border-stone-100 shadow-sm">
-                        <div>
-                            <span id="days" class="text-3xl font-serif text-boda-azul block">00</span>
-                            <span class="text-[8px] text-stone-400 uppercase tracking-widest block mt-0.5">Días</span>
-                        </div>
-                        <div>
-                            <span id="hours" class="text-3xl font-serif text-boda-azul block">00</span>
-                            <span class="text-[8px] text-stone-400 uppercase tracking-widest block mt-0.5">Horas</span>
-                        </div>
-                        <div>
-                            <span id="minutes" class="text-3xl font-serif text-boda-azul block">00</span>
-                            <span class="text-[8px] text-stone-400 tracking-widest block mt-0.5">Mins</span>
-                        </div>
-                        <div>
-                            <span id="seconds" class="text-3xl font-serif text-boda-dorado block">00</span>
-                            <span class="text-[8px] text-stone-400 tracking-widest block mt-0.5">Segs</span>
-                        </div>
-                    </div>
+    <div class="pt-10 px-6 space-y-4 w-full text-center">
+        <span class="text-stone-400 text-[10px] uppercase tracking-[0.5em] font-light block scroll-revelar" data-delay="1">Nos Casamos</span>
+        <h2 class="font-hand text-6xl text-boda-azul leading-none scroll-revelar" data-delay="2">Yury &amp; Ronald</h2>
+        <div class="w-16 h-[1px] bg-boda-dorado mx-auto my-4 scroll-revelar-linea" data-delay="3"></div>
+        <p class="font-serif text-[11px] text-boda-dorado tracking-[0.3em] uppercase font-bold mb-3 scroll-revelar" data-delay="4">Faltan:</p>
+        
+        <div class="grid grid-cols-4 gap-2 max-w-[320px] mx-auto justify-center text-center bg-white/60 p-4 rounded-2xl border border-stone-100 shadow-sm scroll-revelar" data-delay="5">
+            <div>
+                <span id="days" class="text-3xl font-serif text-boda-azul block">00</span>
+                <span class="text-[8px] text-stone-400 uppercase tracking-widest block mt-0.5">Días</span>
+            </div>
+            <div>
+                <span id="hours" class="text-3xl font-serif text-boda-azul block">00</span>
+                <span class="text-[8px] text-stone-400 uppercase tracking-widest block mt-0.5">Horas</span>
+            </div>
+            <div>
+                <span id="minutes" class="text-3xl font-serif text-boda-azul block">00</span>
+                <span class="text-[8px] text-stone-400 tracking-widest block mt-0.5">Mins</span>
+            </div>
+            <div>
+                <span id="seconds" class="text-3xl font-serif text-boda-dorado block">00</span>
+                <span class="text-[8px] text-stone-400 tracking-widest block mt-0.5">Segs</span>
+            </div>
+        </div>
 
-                    <p class="text-sm font-serif italic text-stone-700 pt-4 px-4 font-medium leading-relaxed">
-                        Te esperamos para celebrar nuestra boda
-                    </p>
+        <p class="text-sm font-serif italic text-stone-700 pt-4 px-4 font-medium leading-relaxed scroll-revelar" data-delay="6">
+            Te esperamos para celebrar nuestra boda
+        </p>
 
-                    <div class="flex justify-center items-center gap-4 border-y border-stone-200 py-3 mt-6 max-w-[280px] mx-auto">
-                        <span class="text-[10px] font-sans tracking-widest text-stone-400 uppercase">Sábado</span>
-                        <span class="text-4xl font-serif text-boda-azul leading-none font-light">08</span>
-                        <span class="text-[10px] font-sans tracking-widest text-stone-400 uppercase">Agosto</span>
-                    </div>
-                    <p class="text-xs tracking-[0.2em] text-boda-dorado uppercase font-medium mt-1">Trujillo, Perú</p>
-                </div>
-            </header>
+        <div class="flex justify-center items-center gap-4 border-y border-stone-200 py-3 mt-6 max-w-[280px] mx-auto scroll-revelar" data-delay="7">
+            <span class="text-[10px] font-sans tracking-widest text-stone-400 uppercase">Sábado</span>
+            <span class="text-4xl font-serif text-boda-azul leading-none font-light">08</span>
+            <span class="text-[10px] font-sans tracking-widest text-stone-400 uppercase">Agosto</span>
+        </div>
+        <p class="text-xs tracking-[0.2em] text-boda-dorado uppercase font-medium mt-1 scroll-revelar" data-delay="8">Trujillo, Perú</p>
+    </div>
+</header>
 
-            <section class="w-full h-[320px] relative flex items-center justify-center flex-shrink-0 bg-stone-900 overflow-hidden papel-rasgado-top papel-rasgado-bottom">
-                <img src="https://www.dropbox.com/scl/fi/lnoejvdd6qu10eqdkhbmw/0E2D1A7F-8C2E-46B3-9084-DD697643E901.JPG.jpeg?rlkey=u21cjnyrk9owrasciqn6v8go9&raw=1" class="absolute inset-0 w-full h-full object-cover object-center brightness-[0.38]" alt="Rostros de novios e hilos bíblicos">
-                <div class="relative z-10 text-center px-8 py-6">
-                    <p class="font-serif text-xl text-white italic font-light leading-relaxed drop-shadow-md">
-                        "Y si alguno prevaleciere contra uno, dos le resistirán; y cordón de tres dobleces no se rompe pronto."
-                    </p>
-                    <p class="text-[9px] uppercase tracking-[0.2em] text-boda-oro-claro mt-3 font-semibold">Eclesiastés 4:12</p>
-                </div>
-            </section>
+<section class="w-full h-[320px] relative flex items-center justify-center flex-shrink-0 bg-stone-900 overflow-hidden papel-rasgado-top papel-rasgado-bottom">
+    <img src="https://www.dropbox.com/scl/fi/lnoejvdd6qu10eqdkhbmw/0E2D1A7F-8C2E-46B3-9084-DD697643E901.JPG.jpeg?rlkey=u21cjnyrk9owrasciqn6v8go9&raw=1" 
+         class="absolute inset-0 w-full h-full object-cover object-center brightness-[0.35]" 
+         alt="Fondo Versículo Bíblico">
+    <div class="relative z-10 text-center px-8 py-6">
+        <p class="font-serif text-xl text-white italic font-light leading-relaxed drop-shadow-md scroll-revelar" data-delay="1">
+            "Y si alguno prevaleciere contra uno, dos le resistirán; y cordón de tres dobleces no se rompe pronto."
+        </p>
+        <p class="text-[10px] uppercase tracking-[0.2em] text-boda-oro-claro mt-4 font-semibold scroll-revelar" data-delay="3">
+            Eclesiastés 4:12
+        </p>
+    </div>
+</section>
 
             <section id="detalles" class="tarjeta-papel py-16 px-6 w-full space-y-20 flex-shrink-0">
                 
@@ -995,6 +1027,51 @@
                 document.getElementById('seconds').innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
             }
         }, 1000);
+// AÑADE ESTAS FUNCIONES DENTRO DE TU ETIQUETA <script> FINAL
+
+function portadaDescargada() {
+    document.getElementById('contenedor-portada').classList.add('img-visible');
+    activarRastreadorScroll();
+}
+
+function activarRastreadorScroll() {
+    const elementosAnimables = document.querySelectorAll('.scroll-revelar, .scroll-revelar-linea');
+    
+    const configuracionObserver = {
+        root: null,
+        threshold: 0.05, 
+        rootMargin: "0px 0px -10px 0px"
+    };
+
+    const observadorDeInterseccion = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const targetElement = entry.target;
+                const delayIndex = parseInt(targetElement.getAttribute('data-delay') || 1);
+                
+                setTimeout(() => {
+                    if (targetElement.classList.contains('scroll-revelar-linea')) {
+                        targetElement.classList.add('linea-activa');
+                    } else {
+                        targetElement.classList.add('revelado-activo');
+                    }
+                }, delayIndex * 110);
+                
+                observer.unobserve(targetElement); 
+            }
+        });
+    }, configuracionObserver);
+
+    elementosAnimables.forEach(elemento => observadorDeInterseccion.observe(elemento));
+}
+
+// Respaldo por si Dropbox tarda en responder
+setTimeout(() => {
+    const portada = document.getElementById('contenedor-portada');
+    if (portada && !portada.classList.contains('img-visible')) {
+        portadaDescargada();
+    }
+}, 2500);
     </script>
 </body>
 </html>
