@@ -1089,6 +1089,28 @@ setTimeout(() => {
         portadaDescargada();
     }
 }, 2500);
+        // --- SENSOR DE PERSONALIZACIÓN DE INVITADOS (ROV04I.GITHUB.IO) ---
+window.addEventListener('load', () => {
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const nombreLink = params.get('in');
+        const pasesLink = params.get('pa');
+
+        if (nombreLink) {
+            const elNombre = document.getElementById('nombre-invitado');
+            if (elNombre) elNombre.innerText = nombreLink;
+        }
+
+        if (pasesLink) {
+            const elPases = document.getElementById('pases-invitado');
+            if (elPases) {
+                elPases.innerText = pasesLink.toString().padStart(2, '0');
+            }
+        }
+    } catch (error) {
+        console.error("Error cargando los parámetros del invitado:", error);
+    }
+});
     </script>
 </body>
 </html>
