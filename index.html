@@ -135,13 +135,18 @@
         <h1 class="font-hand text-7xl text-boda-dorado leading-none drop-shadow-lg">Ronald</h1>
     </div>
 
+<!-- BLOQUE DE INVITACIÓN OPTIMIZADO (SIN VALORES POR DEFECTO) -->
     <div class="z-10 text-center select-none w-full max-w-[310px] mx-auto my-auto px-4 py-4 border-y border-white/10 backdrop-blur-[3px] bg-black/10 rounded-2xl shadow-inner">
         <p class="font-serif italic text-white/40 text-[9px] tracking-[0.25em] uppercase mb-2">Pase de Gala Exclusivo para:</p>
+        
+        <!-- Eliminamos el nombre estático y dejamos que JavaScript tome el control total -->
         <h3 id="nombre-invitado" class="font-serif text-white text-xl font-medium tracking-[0.06em] leading-snug drop-shadow-sm mb-1.5">
-            Familia Vásquez Ulloa
+            &nbsp;
         </h3>
-        <p class="font-sans text-boda-dorado text-[9px] font-semibold tracking-[0.2em] uppercase">
-            Pases asignados: <span id="pases-invitado" class="font-serif text-sm font-bold text-white ml-0.5 bg-white/5 px-2 py-0.5 rounded-md border border-white/5">04</span>
+        
+        <!-- El marcador de pases iniciará oculto hasta leer el número real del Sheet -->
+        <p id="contenedor-pases" class="font-sans text-boda-dorado text-[9px] font-semibold tracking-[0.2em] uppercase opacity-0 transition-opacity duration-500">
+            Pases asignados: <span id="pases-invitado" class="font-serif text-sm font-bold text-white ml-0.5 bg-white/5 px-2 py-0.5 rounded-md border border-white/5">00</span>
         </p>
     </div>
 
@@ -1089,24 +1094,33 @@ setTimeout(() => {
         portadaDescargada();
     }
 }, 2500);
-        // --- SENSOR DE PERSONALIZACIÓN DE INVITADOS (ROV04I.GITHUB.IO) ---
+// --- SENSOR DE PERSONALIZACIÓN DE INVITADOS OPTIMIZADO ---
 window.addEventListener('load', () => {
     try {
         const params = new URLSearchParams(window.location.search);
         const nombreLink = params.get('in');
         const pasesLink = params.get('pa');
 
+        const elNombre = document.getElementById('nombre-invitado');
+        const elPases = document.getElementById('pases-invitado');
+        const contenedorPases = document.getElementById('contenedor-pases');
+
+        // Caso A: El enlace SI viene personalizado desde tu Google Sheet
         if (nombreLink) {
-            const elNombre = document.getElementById('nombre-invitado');
             if (elNombre) elNombre.innerText = nombreLink;
+            
+            if (pasesLink && elPases && contenedorPases) {
+                elPases.innerText = pasesLink.toString().padStart(2, '0');
+                contenedorPases.classList.remove('opacity-0'); // Muestra los pases de forma suave
+            }
+        } 
+        // Caso B: El enlace es el general (ej: ingresan directo al dominio principal)
+        else {
+            if (elNombre) elNombre.innerText = "¡Bienvenidos a nuestra Boda!";
+            // Mantenemos el contenedor de pases oculto para que no muestre un "00" confuso
+            if (contenedorPases) contenedorPases.style.display = 'none'; 
         }
 
-        if (pasesLink) {
-            const elPases = document.getElementById('pases-invitado');
-            if (elPases) {
-                elPases.innerText = pasesLink.toString().padStart(2, '0');
-            }
-        }
     } catch (error) {
         console.error("Error cargando los parámetros del invitado:", error);
     }
