@@ -124,48 +124,55 @@
 
     <audio id="bgMusic" src="https://www.dropbox.com/scl/fi/syxjcb2f3o2kufk6e6mak/AMARTE_Saxo.mp3?rlkey=u4fsius877x0qw7w7zbdgqa8q&raw=1" loop preload="auto"></audio>
 
-    <div id="sobre-contenedor" class="fixed inset-0 z-50 bg-satinado flex flex-col justify-between items-center p-8 transition-all duration-1000 ease-in-out">
+<!-- CONTENEDOR DEL SOBRE CON CORRECCIÓN ABSOLUTA PARA EVITAR DEFORMACIÓN DEL LACRE -->
+<div id="sobre-contenedor" class="fixed inset-0 z-50 bg-satinado flex flex-col items-center justify-start p-6 overflow-hidden transition-all duration-1000 ease-in-out">
+    <!-- Marcos lineales decorativos -->
     <div class="absolute inset-6 border border-white/10 pointer-events-none rounded-xl"></div>
     <div class="absolute inset-0 pointer-events-none border-b-[1px] border-white/5" style="clip-path: polygon(0 0, 50% 50%, 100% 0);"></div>
 
-    <div class="mt-14 text-center z-10 select-none flex-shrink-0">
-        <span class="font-serif text-white/40 tracking-[0.4em] text-[10px] uppercase block mb-3">Nuestra Boda</span>
-        <h1 class="font-hand text-7xl text-boda-dorado leading-none drop-shadow-lg">Yury</h1>
-        <span class="font-serif italic text-2xl text-white/50 block my-1.5">&amp;</span>
-        <h1 class="font-hand text-7xl text-boda-dorado leading-none drop-shadow-lg">Ronald</h1>
+    <!-- 1. Bloque de Títulos de los Novios (Margen superior fijo y controlado) -->
+    <div class="mt-8 sm:mt-12 text-center z-10 select-none block w-full">
+        <span class="font-serif text-white/40 tracking-[0.4em] text-[9px] uppercase block mb-2">Nuestra Boda</span>
+        <h1 class="font-hand text-6xl sm:text-7xl text-boda-dorado leading-none drop-shadow-lg">Yury</h1>
+        <span class="font-serif italic text-xl text-white/50 block my-1">&amp;</span>
+        <h1 class="font-hand text-6xl sm:text-7xl text-boda-dorado leading-none drop-shadow-lg">Ronald</h1>
     </div>
 
-<!-- BLOQUE DE INVITACIÓN OPTIMIZADO (SIN VALORES POR DEFECTO) -->
-    <div class="z-10 text-center select-none w-full max-w-[310px] mx-auto my-auto px-4 py-4 border-y border-white/10 backdrop-blur-[3px] bg-black/10 rounded-2xl shadow-inner">
-        <p class="font-serif italic text-white/40 text-[9px] tracking-[0.25em] uppercase mb-2">Pase de Gala Exclusivo para:</p>
-        
-        <!-- Eliminamos el nombre estático y dejamos que JavaScript tome el control total -->
-        <h3 id="nombre-invitado" class="font-serif text-white text-xl font-medium tracking-[0.06em] leading-snug drop-shadow-sm mb-1.5">
+    <!-- 2. Bloque de Invitación y Pases (Separación fija) -->
+    <div class="z-10 text-center select-none w-full max-w-[290px] mx-auto mt-6 px-4 py-4 border-y border-white/10 backdrop-blur-[3px] bg-black/10 rounded-2xl shadow-inner">
+        <p class="font-serif italic text-white/40 text-[9px] tracking-[0.25em] uppercase mb-1.5">Pase de Gala Exclusivo para:</p>
+        <h3 id="nombre-invitado" class="font-serif text-white text-lg font-medium tracking-[0.06em] leading-snug drop-shadow-sm mb-1.5">
             &nbsp;
         </h3>
-        
-        <!-- El marcador de pases iniciará oculto hasta leer el número real del Sheet -->
         <p id="contenedor-pases" class="font-sans text-boda-dorado text-[9px] font-semibold tracking-[0.2em] uppercase opacity-0 transition-opacity duration-500">
             Pases asignados: <span id="pases-invitado" class="font-serif text-sm font-bold text-white ml-0.5 bg-white/5 px-2 py-0.5 rounded-md border border-white/5">00</span>
         </p>
     </div>
 
-    <div class="relative z-20 mb-6 cursor-pointer group flex flex-col items-center flex-shrink-0" id="sello-lacre">
-        <div class="mb-3 animate-bounce flex flex-col items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#f9e2af" class="w-7 h-7">
+    <!-- 3. Bloque del Sello de Lacre (Forzado con CSS estricto para evitar estiramientos) -->
+    <div class="relative z-20 mt-6 mb-4 cursor-pointer group flex flex-col items-center select-none" id="sello-lacre">
+        <!-- Flecha indicadora fija -->
+        <div class="mb-2 animate-bounce flex flex-col items-center" style="height: 24px;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#f9e2af" style="width: 24px; height: 24px;">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
             </svg>
         </div>
         
-        <div class="w-26 h-26 sm:w-28 sm:h-28 rounded-full lacre-oro flex items-center justify-center transform group-hover:scale-110 transition-transform duration-500 overflow-hidden p-1.5 z-10">
-            <img src="https://www.dropbox.com/scl/fi/n0w4z0ribyfj23gi0tg9o/SelloYR.png?rlkey=4evsurakj37vt0a6qeon3txoa&amp;raw=1" alt="Sello Yury y Ronald" class="w-full h-full object-contain filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
+        <!-- Contenedor del Lacre con ancho y alto estricto e inalterable -->
+        <div class="lacre-oro flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500 rounded-full p-1" 
+             style="width: 105px; height: 105px; min-width: 105px; min-height: 105px; max-width: 105px; max-height: 105px;">
+            <img src="https://www.dropbox.com/scl/fi/n0w4z0ribyfj23gi0tg9o/SelloYR.png?rlkey=4evsurakj37vt0a6qeon3txoa&amp;raw=1" 
+                 alt="Sello Yury y Ronald" 
+                 class="w-full h-full object-contain filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
         </div>
-        <div class="absolute top-10 w-26 h-26 sm:w-28 sm:h-28 rounded-full bg-boda-dorado/20 animate-ping z-0"></div>
+        <!-- Efecto onda de fondo restringido al tamaño real -->
+        <div class="absolute rounded-full bg-boda-dorado/20 animate-ping z-0" style="top: 32px; width: 105px; height: 105px;"></div>
     </div>
 
-    <div class="mb-12 text-center z-10 select-none flex-shrink-0">
+    <!-- 4. Mensaje Inferior de Apertura (Fijado al fondo del viewport de forma limpia) -->
+    <div class="mt-auto mb-6 text-center z-10 select-none block w-full">
         <p class="font-serif italic text-xs text-white/50 tracking-wider">Una hermosa historia de amor...</p>
-        <p class="text-[10px] font-semibold text-boda-dorado tracking-[0.3em] mt-1.5 uppercase animate-pulse">
+        <p class="text-[10px] font-semibold text-boda-dorado tracking-[0.3em] mt-1 uppercase animate-pulse">
             Presiona para abrir
         </p>
     </div>
