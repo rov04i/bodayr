@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compartir Recuerdos - Yury & Samuel</title>
+    <title>Compartir Recuerdos - Yury & Ronald</title>
+    <!-- Tailwind CSS Oficial de Alta Velocidad -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
@@ -37,36 +38,41 @@
 </head>
 <body class="bg-satinado font-sans-gala min-h-screen flex flex-col items-center justify-start p-4 text-white">
 
+    <!-- Bloque de Cabecera: Monograma e Identidad de la Invitación -->
     <div class="text-center mt-8 mb-6 select-none max-w-sm px-2 animate-fade-in">
         <div class="inline-block border border-[#f9e2af]/40 rounded-full px-4 py-1 mb-3 bg-black/20 backdrop-blur-sm">
-            <span class="font-serif-gala text-xs text-[#f9e2af] tracking-[0.3em] uppercase">Y & S</span>
+            <span class="font-serif-gala text-xs text-[#f9e2af] tracking-[0.3em] uppercase">Y & R</span>
         </div>
         <h1 class="font-serif-gala text-3xl md:text-4xl text-[#f9e2af] tracking-widest uppercase mb-2 font-bold drop-shadow-sm">
-            Yury & Samuel
+            Yury & Ronald
         </h1>
         <div class="h-[1px] w-24 bg-gradient-to-r from-transparent via-[#f9e2af]/60 to-transparent mx-auto my-3"></div>
         <p class="text-sm text-white/90 font-medium tracking-wide">Álbum Digital de Recuerdos</p>
     </div>
 
+    <!-- Contenedor del Formulario Inspirado en la Referencia (Efecto Cristal Premium) -->
     <div class="w-full max-w-md bg-slate-950/45 backdrop-blur-xl rounded-3xl border border-white/15 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.6)] p-6 space-y-6">
         
         <div class="text-left border-b border-white/10 pb-4">
-            <h2 class="font-serif-gala text-lg text-[#f9e2af] tracking-wider uppercase font-semibold">Cargar Fotos</h2>
+            <h2 class="font-serif-gala text-lg text-[#f9e2af] tracking-wider uppercase font-semibold">Cargar Fotos y Videos</h2>
             <p class="text-xs text-white/70 mt-0.5 font-light">Comparte con nosotros los mejores momentos de la boda.</p>
         </div>
 
         <form id="uploadForm" class="space-y-6">
+            <!-- Campo Nombre del Invitado -->
             <div>
                 <label class="block text-xs uppercase tracking-wider text-white font-semibold mb-2">Nombre del Invitado</label>
                 <input type="text" id="guestName" placeholder="Ej. Familia Vásquez" 
                        class="w-full bg-black/40 border-2 border-white/20 rounded-xl px-4 py-3.5 text-base text-white placeholder-white/40 focus:outline-none focus:border-[#f9e2af] transition-colors font-medium shadow-inner">
             </div>
 
+            <!-- Campo Zona de Selección de Fotos/Videos -->
             <div>
                 <label class="block text-xs uppercase tracking-wider text-white font-semibold mb-2">Selecciona tus archivos</label>
                 <div class="relative group cursor-pointer border-2 border-dashed border-white/30 hover:border-[#f9e2af] rounded-2xl p-8 text-center transition-all bg-black/20 hover:bg-black/30">
                     <input type="file" id="fileInput" accept="image/*,video/*" multiple class="absolute inset-0 opacity-0 cursor-pointer">
                     
+                    <!-- Icono Minimalista Elegante -->
                     <div class="w-14 h-14 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-3 border border-white/10 group-hover:border-[#f9e2af]/50 group-hover:bg-white/10 transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#f9e2af" class="w-6 h-6 group-hover:scale-110 transition-transform">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
@@ -78,22 +84,28 @@
                 </div>
             </div>
 
+            <!-- Panel de Progreso Dinámico por cada archivo (Oculto al inicio) -->
             <div id="progressContainer" class="hidden space-y-3 max-h-48 overflow-y-auto pr-1 bg-black/30 p-4 rounded-xl border border-white/10 custom-scroll">
-                </div>
+                <!-- Las barras de progreso individuales se inyectarán aquí -->
+            </div>
 
+            <!-- Botón de Envío (Subir Foto) -->
             <button type="submit" id="submitBtn" 
                     class="w-full bg-gradient-to-r from-[#f9e2af] to-[#e9d29f] text-[#0f2347] font-bold text-base py-4 px-4 rounded-xl shadow-lg shadow-yellow-950/40 active:scale-[0.98] hover:brightness-105 transition-all flex items-center justify-center space-x-2 cursor-pointer uppercase tracking-widest font-serif-gala">
                 <span>Subir foto</span>
             </button>
         </form>
 
+        <!-- Estado de la subida general -->
         <div id="statusMessage" class="hidden text-center text-sm p-4 rounded-xl font-bold transition-all"></div>
     </div>
 
+    <!-- Pie de página discreto -->
     <div class="text-center mt-8 mb-4 opacity-40 text-[10px] tracking-widest uppercase select-none">
-        &copy; 2026 Yury & Samuel
+        &copy; 2026 Yury & Ronald
     </div>
 
+    <!-- LÓGICA DE SUBIDA E INTERFAZ DE PROGRESO -->
     <script>
         const fileInput = document.getElementById('fileInput');
         const fileLabel = document.getElementById('fileLabel');
@@ -172,7 +184,7 @@
                         const base64Data = reader.result.split(',')[1];
                         
                         try {
-                            // Enviar datos usando modo 'no-cors' para la conexión directa con Apps Script
+                            // Conexión directa y fluida en segundo plano con Apps Script
                             await fetch("https://script.google.com/macros/s/AKfycbyX9NPgxvyk3b2cGNAr2Hzf9mpg7zT7FY_kC36LBHVnJ-O1hruoCJm1Db9arFCa0lk/exec", {
                                 method: "POST",
                                 mode: "no-cors", 
@@ -187,7 +199,7 @@
                                 })
                             });
                             
-                            // Éxito visual accesible
+                            // Visualización exitosa
                             progressBar.style.width = '100%';
                             progressBar.className = "h-full bg-emerald-400";
                             progressPercent.textContent = "Listo";
@@ -205,7 +217,7 @@
                 });
             }
 
-            // Mensaje de éxito final adaptado de alta visibilidad
+            // Mensaje de éxito al completar el bucle de cargas
             statusMessage.className = "text-center text-sm p-4 rounded-xl bg-emerald-950/50 text-emerald-300 border border-emerald-500/40 font-bold";
             statusMessage.textContent = "Fotos subidas con éxito.";
             
